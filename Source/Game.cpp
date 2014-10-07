@@ -20,9 +20,6 @@ CGame::CGame(){
 	atexit(SDL_Quit);
 }
 
-
-
-
 // Con esta función eliminaremos todos los elementos en pantalla
 void CGame::Finalize(){
 	SDL_Quit();
