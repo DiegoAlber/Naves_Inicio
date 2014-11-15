@@ -10,9 +10,10 @@ class Nave{
 	bool autoMovimiento;
 	int pasoActual;
 	int pasoLimite;
+	int module;//Modulo Actual
 public:
 	void Mover(int posicion);
-	Nave(SDL_Surface * screen, char * rutaImagen, int x, int y);
+	Nave(SDL_Surface * screen, char * rutaImagen, int x, int y,int module);
 	void SetAutoMovimiento(bool autoMovimiento);
 	void SetPasoLimite(int pasos);
 	int ObtenerPasoActual();
