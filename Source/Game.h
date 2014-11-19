@@ -19,9 +19,10 @@ public:
 
 private:
 	void Iniciando();
+	void Menu();
 	void MoverEnemigo();
 	bool EsLimitePantalla(Nave * objeto, int bandera);
-
+	int opcionseleccionada;
 	Uint8 * keys; // esta variable nos servira para ver si determinadas teclas estan o no pulsando
 	SDL_Event event; //nos servira para movilizar el
 

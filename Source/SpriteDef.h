@@ -12,7 +12,7 @@ class SpriteDef{
 
 	};
 public:
-	Modulos modulos[2];//<-Numero de Modulos
+	Modulos modulos[9];//<-Numero de Modulos
 	SpriteDef();
 
 };

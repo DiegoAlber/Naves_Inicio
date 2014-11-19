@@ -35,17 +35,19 @@ void CGame::Iniciando(){
 	}
 	SDL_WM_SetCaption( "Mi primer Juego", NULL );
 	atexit(SDL_Quit);
-	nave = new Nave(screen,"../Data/minave.bmp",(WIDTH_SCREEN/2)/*-(sprite->WidthModule(0)/2)*/,(HEIGHT_SCREEN-80)/*-(sprite->HeightModule(0))*/);
-	//-enemigo = new Nave(screen,"../Data/enemigo.bmp",0,0);
-	//-enemigo->SetAutoMovimiento(false);
+	nave = new Nave(screen,"../Data/minave.bmp",(WIDTH_SCREEN/2),(HEIGHT_SCREEN-80),MODULO_MINAVE_NAVE);
+    menu=new Nave(screen,"../Data/Fondo Menu.bmp",0,0,MODULO_FONDOMENU_FONDO);
+    textos=new Nave(screen,"../Data/menu.bmp",0,0,MODULO_TEXTO_TITULO);
+
 	
 	for(int i=0;i<10;i++){
-		enemigoArreglo[i] = new Nave(screen,"../Data/enemigo.bmp",i *60,0);
+		enemigoArreglo[i] = new Nave(screen,"../Data/enemigo.bmp",i*60,0,MODULO_ENEMIGO_NAVE);
 		enemigoArreglo[i]->SetAutoMovimiento(false);
 		enemigoArreglo[i]->SetPasoLimite(4);
 
 	}
 	tick=0;
+	opcionseleccionada=MODULO_TEXTO_MENU_OPCION1;
 
 	//-enemigo->SetPasoLimite(4);
 	//-enemigo->SetAutoMovimiento();
@@ -61,54 +63,52 @@ bool CGame::Start()
 		//Maquina de estados
 		switch(estado){
 		case Estado::ESTADO_INICIANDO:
-			//system("cls");
-			/*printf("\n1. ESTADO_INICIANDO");
-			printf("\n2. ESTADO_MENU");
-			printf("\n3. ESTADO_JUGANDO");
-			printf("\n4. ESTADO_TERMINANDO");
-			printf("\n2. ESTADO_MENU");
-			printf("\n5. ESTADO_FINALIZANDO");
-			scanf("%d",&estado);*/
+			
 			Iniciando();
 			estado = ESTADO_MENU;
-			//getchar();
+			
 			break;
 		case Estado::ESTADO_MENU:
-			//-enemigo->Actualizar();
+			menu->Pintar();
+			textos->Pintar(MODULO_TEXTO_TITULO,150,50);
+			textos->Pintar(MODULO_TEXTOS_NOMBRE,200,440);
+			Menu();
+			break;
+			
+		case Estado::ESTADO_JUGANDO:
+			
+			printf("\n3. ESTADO_JUGANDO");
+			
 			for(int i=0;i<10;i++){
 				enemigoArreglo[i]->Actualizar();
 			}
 			MoverEnemigo();
-			/*system("cls");
-			printf("\n2. ESTADO_MENU");*/
-			//nave->PintarModulo(1,0,0);
+			
 			SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0)); // Color de pantalla y velocidad
+			
 			keys = SDL_GetKeyState(NULL);
 			if(keys[SDLK_RIGHT]){
 				if(!EsLimitePantalla(nave, BORDE_DERECHO))
 					nave->Mover(1);
 			}
 			if(keys[SDLK_LEFT]){
-				nave->Mover(-1);
+		    nave->Mover(-1);
 			}
 			nave->Pintar();
-			//-enemigo->Pintar();
+			
 			for(int i=0; i<10;i++)
 			enemigoArreglo[i]->Pintar();
-			//getchar();
+		
 			break;
-		case Estado::ESTADO_JUGANDO:
-			system("cls");
-			printf("\n3. ESTADO_JUGANDO");
 			getchar();
 			break;
 		case Estado::ESTADO_TERMINANDO:
-			system("cls");
+			
 			printf("\n4. ESTADO_TERMINANDO");
 			getchar();
 			break;
 		case Estado::ESTADO_FINALIZANDO:
-			system("cls");
+			
 			printf("\n5. ESTADO_FINALIZANDO");
 			getchar();
 			salirJuego = false;
@@ -186,5 +186,17 @@ void CGame::MoverEnemigo(){
 			enemigoArreglo[i]->IncrementarPasoActual();
 		}
 		}
+}   void CGame::Menu(){
+
+	for(int i= MODULO_TEXTO_MENU_OPCION1, j = 0; i <= MODULO_TEXTO_MENU_OPCION2; i++, j++ ){
+		if(i==opcionseleccionada)
+			textos->Pintar(i+2,200,180+(j*80));
+		else
+        textos->Pintar(i, 200, 140+(j*80));
+	}
+
+
+
+
 }
 
