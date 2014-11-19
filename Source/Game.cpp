@@ -73,6 +73,7 @@ bool CGame::Start()
 			textos->Pintar(MODULO_TEXTO_TITULO,150,50);
 			textos->Pintar(MODULO_TEXTOS_NOMBRE,200,440);
 			Menu();
+			estado=ESTADO_JUGANDO;
 			break;
 			
 		case Estado::ESTADO_JUGANDO:

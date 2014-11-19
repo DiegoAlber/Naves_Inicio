@@ -10,7 +10,9 @@ Sprite::~Sprite(){
 
 void Sprite::CargarImagen(char * nombre){
 	imagen = SDL_LoadBMP(nombre);
+	SDL_SetColorKey(imagen,SDL_SRCCOLORKEY,SDL_MapRGB(imagen->format,255,0,255));
 }
+
 
 //void Sprite::PintarModulo(int nombre, int x, int y, int w, int h){
 //	SDL_Rect src;
